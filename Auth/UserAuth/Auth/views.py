@@ -25,6 +25,7 @@ class Signup(APIView):
 class Login(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self, request):
+        print(request.data)
         email = request.data['email']
         password = request.data['password']
 
@@ -49,6 +50,7 @@ class Login(APIView):
     
 class Logout(APIView):
     permission_classes = [permissions.IsAuthenticated]
+    
     def post(self, request):
         print(request.data)
 
@@ -57,10 +59,18 @@ class Logout(APIView):
             refresh_token = request.data["refresh_token"]
             print(refresh_token,'token')
             token = RefreshToken(refresh_token)
-
+            print('hi')
             token.blacklist()
-
+            print('ji')
             response = Response(status=status.HTTP_205_RESET_CONTENT)
             return response
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+class Home(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        print(request.user)
+        data = {'user': request.user.username,'first_name': request.user.first_name, 'email': request.user.email}
+        return Response(data, status=status.HTTP_200_OK)
