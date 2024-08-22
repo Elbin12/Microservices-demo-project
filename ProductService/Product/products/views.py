@@ -8,7 +8,8 @@ from rest_framework.response import Response
 
 
 class ProductsView(APIView):
-
+    permission_classes = [permissions.IsAuthenticated]
+    
     def get(self, request):
         products = Products.objects.all()
         return Response(products, status=status.HTTP_200_OK)

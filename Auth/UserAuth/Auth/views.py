@@ -7,6 +7,11 @@ from .serializers import UserSerializer
 from rest_framework import status, permissions
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
+import jwt
+from rest_framework_simplejwt.tokens import UntypedToken
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+
+from django.conf import settings
 
 # Create your views here.
 
@@ -78,15 +83,14 @@ class Home(APIView):
 
 class ValidateToken(APIView):
     permission_classes = [permissions.AllowAny]
-    print('hi')
+
     def post(self, request):
-        print('ff', request)
         token = request.headers.get("Authorization")
-        print('llk', token)
         try:
-            print('lld')
             AccessToken(token)
-            print('token')
-            return Response({'message':'Token is valid'},status=status.HTTP_200_OK)
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            user_id = payload.get('user_id')
+            return Response({'user_id':user_id},status=status.HTTP_200_OK)
         except:
             return Response({'message':'Token is not Valid'}, status=status.HTTP_401_UNAUTHORIZED)
+
