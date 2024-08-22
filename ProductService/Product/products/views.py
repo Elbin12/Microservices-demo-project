@@ -7,8 +7,7 @@ from rest_framework.response import Response
 # Create your views here.
 
 
-class Products(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+class ProductsView(APIView):
 
     def get(self, request):
         products = Products.objects.all()

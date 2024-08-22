@@ -74,3 +74,19 @@ class Home(APIView):
         print(request.user)
         data = {'user': request.user.username,'first_name': request.user.first_name, 'email': request.user.email}
         return Response(data, status=status.HTTP_200_OK)
+    
+
+class ValidateToken(APIView):
+    permission_classes = [permissions.AllowAny]
+    print('hi')
+    def post(self, request):
+        print('ff', request)
+        token = request.headers.get("Authorization")
+        print('llk', token)
+        try:
+            print('lld')
+            AccessToken(token)
+            print('token')
+            return Response({'message':'Token is valid'},status=status.HTTP_200_OK)
+        except:
+            return Response({'message':'Token is not Valid'}, status=status.HTTP_401_UNAUTHORIZED)

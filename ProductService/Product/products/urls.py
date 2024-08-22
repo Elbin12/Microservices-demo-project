@@ -3,5 +3,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('products/', )
+    path('products/', views.ProductsView.as_view(), name='product')
 ]
