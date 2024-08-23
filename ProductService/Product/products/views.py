@@ -3,7 +3,8 @@ from .models import Products
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response
-
+import json
+from .serializers import ProductSerializer
 # Create your views here.
 
 
@@ -12,4 +13,5 @@ class ProductsView(APIView):
     
     def get(self, request):
         products = Products.objects.all()
-        return Response(products, status=status.HTTP_200_OK)
+        serializer = ProductSerializer(products, many = True)
+        return Response({'products':serializer.data}, status=status.HTTP_200_OK)
