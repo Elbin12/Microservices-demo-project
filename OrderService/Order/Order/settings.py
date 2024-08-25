@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-p%x#73noy%ut0p^gwg8)!w7@-r)&076we-f7$3r6*q3*av+j%^'
+TOKEN_DECODE_KEY = 'django-insecure-wlgab0!espqp4*cjh+pvwdxnugg%$-n$95^_f!nppsd^^za-(&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'orders',
 ]
 

@@ -17,8 +17,10 @@ from django.conf import settings
 
 
 class Signup(APIView):
+    permission_classes = [permissions.AllowAny]
     def post(self, request):
         data = request.data
+        print(request.data)
         serializer = UserSerializer(data = data)
         if serializer.is_valid():
             serializer.save()

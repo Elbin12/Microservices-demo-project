@@ -10,6 +10,12 @@ import grpc
 from . import products_pb2
 from . import products_pb2_grpc
 
+import jwt
+from rest_framework_simplejwt.tokens import AccessToken
+from django.conf import settings
+
+
+
 # Create your views here.
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
